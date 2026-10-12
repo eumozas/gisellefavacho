@@ -562,7 +562,7 @@ footer a:hover{color:#fff}
     <div class="odo" id="odo" data-value="214" data-suffix="mil" role="img" aria-label="214 mil seguidores no Instagram"></div>
     <div class="clock-right">
       <a class="btn btn-ink mag" href="https://www.instagram.com/gisellefavacho/" target="_blank" rel="noopener">Seguir no Instagram</a>
-      <small>Atualizado em 12 de outubro de 2026</small>
+      <small id="odoUpd">Atualizado em 12 de outubro de 2026</small>
     </div>
   </div>
 </section>
@@ -1045,21 +1045,40 @@ footer a:hover{color:#fff}
     if(!reduce)setInterval(function(){if(!visible||hover||down||lb.classList.contains('open')||Date.now()-last<3500)return;go(1);last=Date.now()},800);
   });
 
-  // relógio de seguidores (dígitos giram até o número real)
+  // relógio de seguidores: mostra 214 mil e troca pelo número real do Instagram quando /api/seguidores responde
   (function(){
     var odo=document.getElementById('odo');if(!odo)return;
-    var s=Number(odo.dataset.value).toLocaleString('pt-BR'),reels=[];
-    s.split('').forEach(function(ch){
-      if(ch==='.'){var p=document.createElement('span');p.className='sep';p.textContent='.';odo.appendChild(p);return}
-      var d=document.createElement('span');d.className='d';var reel=document.createElement('span');reel.className='reel';
-      for(var k=0;k<20;k++){var n=document.createElement('span');n.textContent=k%10;reel.appendChild(n)}
-      d.appendChild(reel);odo.appendChild(d);reels.push({reel:reel,target:10+Number(ch)});
-    });
-    if(odo.dataset.suffix){var sf=document.createElement('span');sf.className='suf';sf.textContent=odo.dataset.suffix;odo.appendChild(sf)}
+    var upd=document.getElementById('odoUpd'),reels=[],visto=false;
+    function build(txt,suf){
+      odo.innerHTML='';reels=[];
+      txt.split('').forEach(function(ch){
+        if(!/[0-9]/.test(ch)){var p=document.createElement('span');p.className='sep';p.textContent=ch;odo.appendChild(p);return}
+        var d=document.createElement('span');d.className='d';var reel=document.createElement('span');reel.className='reel';
+        for(var k=0;k<20;k++){var n=document.createElement('span');n.textContent=k%10;reel.appendChild(n)}
+        d.appendChild(reel);odo.appendChild(d);reels.push({reel:reel,target:10+Number(ch)});
+      });
+      if(suf){var sf=document.createElement('span');sf.className='suf';sf.textContent=suf;odo.appendChild(sf)}
+      reels.forEach(function(r){r.reel.style.transition='none';r.reel.style.transform='translateY(0)'});
+      void odo.offsetWidth;
+      reels.forEach(function(r){r.reel.style.transition=''});
+    }
     function roll(){reels.forEach(function(r,i){r.reel.style.transitionDelay=(i*.12)+'s';r.reel.style.transform='translateY(-'+(r.target*5)+'%)'})}
-    if(reduce||!('IntersectionObserver' in window)){reels.forEach(function(r){r.reel.style.transform='translateY(-'+(r.target*5)+'%)'});return}
-    reels.forEach(function(r){r.reel.style.transform='translateY(-'+((r.target-10)*5)+'%)'});
-    new IntersectionObserver(function(es,o){if(es[0].isIntersecting){roll();o.disconnect()}},{threshold:.5}).observe(odo);
+    function show(txt,suf,label){
+      build(txt,suf);odo.setAttribute('aria-label',label);
+      if(reduce||visto){requestAnimationFrame(function(){requestAnimationFrame(roll)})}
+    }
+    show(String(odo.dataset.value),odo.dataset.suffix||'',odo.getAttribute('aria-label'));
+    if(reduce||!('IntersectionObserver' in window)){visto=true;roll()}
+    else new IntersectionObserver(function(es,o){if(es[0].isIntersecting){visto=true;roll();o.disconnect()}},{threshold:.5}).observe(odo);
+    try{
+      fetch('/api/seguidores',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){
+        if(!d||!d.ok||typeof d.seguidores!=='number')return;
+        var t=d.seguidores.toLocaleString('pt-BR');
+        show(t,'',t+' seguidores no Instagram');
+        if(upd)upd.textContent='Atualizado automaticamente pelo Instagram';
+        var hc=document.querySelector('.chip.c2 b');if(hc)hc.parentNode.innerHTML='<b>'+t+'</b> seguidores';
+      }).catch(function(){});
+    }catch(e){}
   })();
 })();
 </script>

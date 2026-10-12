@@ -13,3 +13,21 @@ Em cerca de 1 minuto o site no ar já mostra a mudança.
 ## Onde fica cada coisa
 - `public/index.html`: o site inteiro (textos, fotos e animações).
 - Número de seguidores: procure `data-value="214"` e a frase "Atualizado em".
+
+## Seguidores atualizando sozinhos
+O site busca o número real em `/api/seguidores` (função em `netlify/functions/seguidores.mjs`).
+Enquanto as variáveis abaixo não existirem, o site mostra "214 mil".
+
+Requisitos: o Instagram @moisesbsilvaa precisa ser conta profissional ligada a uma Página do Facebook,
+e o @gisellefavacho precisa ser conta profissional (criador ou empresa).
+
+1. Em developers.facebook.com, crie um app do tipo "Empresa".
+2. No Graph API Explorer, escolha o app e marque as permissões
+   instagram_basic, pages_show_list, pages_read_engagement e business_management. Clique em "Generate Access Token".
+3. Ainda no Explorer, rode `me/accounts?fields=name,access_token,instagram_business_account`.
+   - O `id` dentro de `instagram_business_account` é o IG_USER_ID.
+   - Para um token que não expira: estenda o token no Access Token Debugger (botão "Extend")
+     e rode `me/accounts` de novo com ele. O `access_token` da sua Página é o META_TOKEN.
+4. No Netlify: Project configuration → Environment variables, crie META_TOKEN e IG_USER_ID.
+   Depois, em Deploys, clique em "Trigger deploy".
+5. Teste abrindo https://gisellefavacho.netlify.app/api/seguidores. Deve aparecer "ok": true e o número.
