@@ -16,7 +16,7 @@ Em cerca de 1 minuto o site no ar já mostra a mudança.
 
 ## Seguidores atualizando sozinhos
 O site busca o número real em `/api/seguidores` (função em `netlify/functions/seguidores.mjs`).
-Enquanto as variáveis abaixo não existirem, o site mostra "214 mil".
+Enquanto as variáveis abaixo não existirem, o site mostra o número fixo (215 mil).
 
 Requisitos: o Instagram @moisesbsilvaa precisa ser conta profissional ligada a uma Página do Facebook,
 e o @gisellefavacho precisa ser conta profissional (criador ou empresa).

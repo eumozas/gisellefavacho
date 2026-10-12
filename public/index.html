@@ -539,7 +539,7 @@ footer a:hover{color:#fff}
   </div>
     <figure class="hero-cut fade" style="animation-delay:.6s" id="heroCut">
       <span class="chip c1"><i class="dot"></i>Ao vivo</span>
-      <span class="chip c2"><b data-to="214">214</b> mil seguidores</span>
+      <span class="chip c2"><b data-to="215">215</b> mil seguidores</span>
       <span class="chip c3">TV Ajiru · DRX Sports</span>
     </figure>
   </div>
@@ -559,7 +559,7 @@ footer a:hover{color:#fff}
       <span class="clock-live"><i></i>Instagram · @gisellefavacho</span>
       <p class="clock-lbl">Seguidores</p>
     </div>
-    <div class="odo" id="odo" data-value="214" data-suffix="mil" role="img" aria-label="214 mil seguidores no Instagram"></div>
+    <div class="odo" id="odo" data-value="215" data-suffix="mil" role="img" aria-label="215 mil seguidores no Instagram"></div>
     <div class="clock-right">
       <a class="btn btn-ink mag" href="https://www.instagram.com/gisellefavacho/" target="_blank" rel="noopener">Seguir no Instagram</a>
       <small id="odoUpd">Atualizado em 12 de outubro de 2026</small>
@@ -581,7 +581,7 @@ footer a:hover{color:#fff}
       <p>Sou jornalista no Pará, repórter e apresentadora esportiva da TV Ajiru e da DRX Sports. Também atuo na comunicação da Prefeitura de Bragança.</p>
       <p>Antes do microfone veio a ciência: sou bióloga e mestre em biologia. Levo esse rigor para a apuração e a curiosidade para cada entrevista, seja na beira do campo ou no estúdio.</p>
       <div class="stats">
-        <div><b class="count" data-to="214" data-suf=" mil">214 mil</b><small>seguidores no Instagram</small></div>
+        <div><b class="count" data-to="215" data-suf=" mil">215 mil</b><small>seguidores no Instagram</small></div>
         <div><b class="count" data-to="2">2</b><small>casas no esporte</small></div>
         <div><b>MSc</b><small>mestre em biologia</small></div>
       </div>
@@ -652,7 +652,7 @@ footer a:hover{color:#fff}
       <article class="card tilt">
         <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div>
         <h3>Parcerias</h3>
-        <p>Publicidade e conteúdo para uma audiência de 214 mil pessoas no Instagram.</p>
+        <p>Publicidade e conteúdo para uma audiência de 215 mil pessoas no Instagram.</p>
         <ul><li>Publis e Reels</li><li>Stories</li><li>Ações com marcas locais</li></ul>
         <a class="btn btn-ink mag dm" href="https://ig.me/m/gisellefavacho" target="_blank" rel="noopener" data-msg="Olá, Giselle! Vi seu site e gostaria de propor uma parceria com a minha marca.">Chamar no direct <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       </article>
@@ -1014,7 +1014,7 @@ footer a:hover{color:#fff}
 
   // selo de seguidores conta ao abrir
   var cb=document.querySelector('.chip.c2 b');
-  if(cb&&!reduce){var t1=null;cb.textContent='0';setTimeout(function(){requestAnimationFrame(function st(ts){if(!t1)t1=ts;var q=Math.min((ts-t1)/1600,1);cb.textContent=Math.round(214*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(st)})},1200)}
+  if(cb&&!reduce){var t1=null;cb.textContent='0';setTimeout(function(){requestAnimationFrame(function st(ts){if(!t1)t1=ts;var q=Math.min((ts-t1)/1600,1);cb.textContent=Math.round(215*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(st)})},1200)}
 
   // links de parceria: copia a mensagem e abre o direct
   document.querySelectorAll('.dm').forEach(function(a){a.addEventListener('click',function(){
@@ -1045,7 +1045,7 @@ footer a:hover{color:#fff}
     if(!reduce)setInterval(function(){if(!visible||hover||down||lb.classList.contains('open')||Date.now()-last<3500)return;go(1);last=Date.now()},800);
   });
 
-  // relógio de seguidores: mostra 214 mil e troca pelo número real do Instagram quando /api/seguidores responde
+  // relógio de seguidores: mostra o número fixo e troca pelo número real do Instagram quando /api/seguidores responde
   (function(){
     var odo=document.getElementById('odo');if(!odo)return;
     var upd=document.getElementById('odoUpd'),reels=[],visto=false;
